@@ -1,0 +1,27 @@
+# States
+States
+q0 qf
+# Input alphabet
+Input alphabet
+( )
+# Stack alphabet
+Stack alphabet
+Z X
+# Transitions
+Transitions
+(q0, (, Z) -> (q0, XZ)
+(q0, (, X) -> (q0, XX)
+(q0, ), X) -> (q0, ε)
+(q0, ε, Z) -> (qf, Z)
+# Initial state
+Initial state
+q0
+# Initial stack symbol
+Initial stack symbol
+Z
+# Final states
+Final states
+qf
+# Word to be checked
+Word
+(())
