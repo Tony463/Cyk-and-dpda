@@ -6,18 +6,18 @@ def read_pda_and_word(file_path):
     current_section = None
     
     for line in lines:
-        if line in ["Stări", "Alfabet de intrare", "Alfabetul stivei", "Tranziții", "Stare inițială", "Simbol inițial al stivei", "Stări finale", "Cuvânt"]:
+        if line in ["States", "Input alphabet", "Stack alphabet", "Transitions", "Initial state", "Initial stack symbol", "Final states", "Word"]:
             current_section = line
             sections[current_section] = []
         else:
             sections[current_section].append(line)
     
-    states = sections["Stări"][0].split()
-    input_alphabet = sections["Alfabet de intrare"][0].split()
-    stack_alphabet = sections["Alfabetul stivei"][0].split()
+    states = sections["States"][0].split()
+    input_alphabet = sections["Input alphabet"][0].split()
+    stack_alphabet = sections["Stack alphabet"][0].split()
     transitions = {}
     
-    for transition in sections["Tranziții"]:
+    for transition in sections["Transitions"]:
         parts = transition.split("->")
         lhs = parts[0].strip().strip("()").split(", ")
         rhs = parts[1].strip().strip("()").split(", ")
@@ -25,10 +25,10 @@ def read_pda_and_word(file_path):
         value = (rhs[0], rhs[1])
         transitions[key] = value
     
-    initial_state = sections["Stare inițială"][0]
-    initial_stack_symbol = sections["Simbol inițial al stivei"][0]
-    final_states = sections["Stări finale"][0].split()
-    word = sections["Cuvânt"][0]
+    initial_state = sections["Initial state"][0]
+    initial_stack_symbol = sections["Initial stack symbol"][0]
+    final_states = sections["Final states"][0].split()
+    word = sections["Word"][0]
     
     return (states, input_alphabet, stack_alphabet, transitions, initial_state, initial_stack_symbol, final_states, word)
 
@@ -55,10 +55,10 @@ def dpda_accepts(states, input_alphabet, stack_alphabet, transitions, initial_st
     
     return current_state in final_states
 
-# Citirea automatului și a cuvântului
+
 file_path = 'pda_and_word.txt'
 (states, input_alphabet, stack_alphabet, transitions, initial_state, initial_stack_symbol, final_states, word) = read_pda_and_word(file_path)
 
-# Verificarea cuvântului
+
 result = dpda_accepts(states, input_alphabet, stack_alphabet, transitions, initial_state, initial_stack_symbol, final_states, word)
-print(f'Cuvântul "{word}" {"aparține" if result else "nu aparține"} limbajului definit de automat.')
+print(f'The word "{word}" {"is" if result else "is not"} part of the language defined by the PDA.')
